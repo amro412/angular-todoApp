@@ -1,0 +1,21 @@
+<table class="table table-bordered border-dark">
+    <thead>
+      <tr>
+        <th scope="col">task name</th>
+        <th scope="col">creator name</th>
+        <th scope="col">creation date</th>
+        <th scope="col">actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of todoService.tasks;let i = index" [class.completed-row]="task.completed">
+        <td scope="row">{{ task.taskName }}</td>
+        <td>
+          <ng-container *ngIf="!task.editMode; else editModeTemplate">{{ task.creatorName }}</ng-container>
+          <ng-template #editModeTemplate> <input type="text" [(ngModel)]="task.creatorName" /> </ng-template>
+        </td>
+        <td>{{ task.creationDate }}</td>
+        <td><app-todo-list [index]="i"></app-todo-list></td>
+      </tr>
+    </tbody>
+  </table>
